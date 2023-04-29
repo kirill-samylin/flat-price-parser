@@ -1,9 +1,13 @@
-name: Demo
-on: workflow_dispatch
-jobs: 
- print: 
+name: Start parser
+on: push
+jobs:
+ install:
   runs-on: ubuntu-latest
-  steps: 
-   - name: Print to console
-     run: echo Hello
-    
+  steps:
+   - name: Get repository code
+     uses: actions/checkout@v3
+   - name: Install dependencies
+     run: npm ci
+   - name: Start project
+     run: npm start
+
