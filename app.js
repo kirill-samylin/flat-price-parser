@@ -19,10 +19,11 @@ async function getPrice() {
       searchResultSelector
     );
     const elementValue = await textSelector.evaluate(el => el.textContent);
-    if (currentValue !== elementValue) {
-      bot.sendMessage(config.adminId,`${elementValue}`)
+    const isNewValue = currentValue !== elementValue
+    if (isNewValue) {
       currentValue = elementValue
     }
+    bot.sendMessage(config.adminId,`Price: ${elementValue}, [open site](${config.url})`, { parse_mode: 'Markdown', disable_notification: !isNewValue })
   }
   page.close();
 }
@@ -35,7 +36,7 @@ function initApp() {
       getPrice()
       setInterval(() => getPrice(), 120000)
     })
-  bot.sendMessage(config.adminId,'App started', { parse_mode: 'Markdown', disable_notification: false })
+  bot.sendMessage(config.adminId,'App started', { parse_mode: 'Markdown', disable_notification: true })
 }
 
 initApp()
