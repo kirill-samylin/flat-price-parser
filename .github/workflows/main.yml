@@ -1,0 +1,9 @@
+name: Demo
+on: workflow_run
+jobs: 
+ print: 
+  runs-on: ubuntu-latest
+  steps: 
+   - name: Print to conlose
+     run: npm install
+    
