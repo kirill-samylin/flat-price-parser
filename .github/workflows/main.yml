@@ -14,6 +14,8 @@ jobs:
      run: npm ci
    - name: Run parser
      run: npm start "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
+     env:
+       CI: true
 
 
 
