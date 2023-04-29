@@ -1,5 +1,9 @@
 name: Start parser
 on: push
+env:
+  TOKEN: ${{ secrets.TOKEN }}
+  ADMIN_ID: ${{ secrets.ADMIN_ID }}
+  FLAT_URL: ${{ secrets.FLAT_URL }}
 jobs:
  install:
   runs-on: ubuntu-latest
@@ -9,5 +13,5 @@ jobs:
    - name: Install dependencies
      run: npm ci
    - name: Start project
-     run: npm start
+     run: echo "${{ secrets.FLAT_URL }}"
 
