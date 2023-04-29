@@ -4,6 +4,6 @@ jobs:
  print: 
   runs-on: ubuntu-latest
   steps: 
-   - name: Print to conlose
-     run: npm install
+   - name: Print to console
+     run: echo Hello
     
