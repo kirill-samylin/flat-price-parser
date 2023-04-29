@@ -7,7 +7,6 @@ env:
 jobs:
  build-node:
   runs-on: ubuntu-latest
-  container: node:16
   steps:
    - name: Get repository code
      uses: actions/checkout@v3
