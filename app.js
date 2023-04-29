@@ -19,7 +19,10 @@ async function getPrice() {
       searchResultSelector
     );
     const elementValue = await textSelector.evaluate(el => el.textContent);
-    bot.sendMessage(config.adminId,`${elementValue}`)
+    if (currentValue !== elementValue) {
+      bot.sendMessage(config.adminId,`${elementValue}`)
+      currentValue = elementValue
+    }
   }
   page.close();
 }
