@@ -12,13 +12,9 @@ jobs:
      uses: actions/checkout@v3
    - name: Install dependencies
      run: npm ci
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get repository code
-        uses: actions/checkout@v3
-      - name: Run parser
-        run: npm start "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
+   - name: Run parser
+     run: npm start "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
+
 
 
 
