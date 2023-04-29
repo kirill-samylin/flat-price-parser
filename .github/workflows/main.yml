@@ -14,7 +14,9 @@ jobs:
    - name: Install dependencies
      run: npm ci
    - name: Run parser
-     run: node app.js "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
+     run: npm start "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
+     env:
+       CI: true
 
 
 
