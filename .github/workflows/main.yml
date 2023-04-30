@@ -1,5 +1,9 @@
 name: CI
-on: push
+on:
+  push:
+    branches: ["main", "dev"]
+  pull_request:
+    branches: ["main"]
 env:
   TOKEN: ${{ secrets.TOKEN }}
   ADMIN_ID: ${{ secrets.ADMIN_ID }}
