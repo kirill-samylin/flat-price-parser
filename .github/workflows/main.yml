@@ -35,6 +35,7 @@ jobs:
           private_key: ${{secrets.SSH_PRIVATE_KEY}}
           command: |
             cd ${{ secrets.PROJECT_FOLDER }};
+            git init;
   #          git checkout main;
   #          git pull;
   #          docker-compose --file docker-compose.prod.yml down;
