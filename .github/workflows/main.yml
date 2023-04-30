@@ -1,6 +1,6 @@
 name: CI
 on:
-  pull_request:
+  push:
     branches: ["main"]
 env:
   TOKEN: ${{ secrets.TOKEN }}
@@ -12,8 +12,6 @@ jobs:
   steps:
    - name: Get repository code
      uses: actions/checkout@v3
-   - name: Install dependencies
-     run: npm ci
    - name: Run command on remote server
      uses: D3rHase/ssh-command-action@v0.2.2
      with:
