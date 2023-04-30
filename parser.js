@@ -13,6 +13,7 @@ function sendMessage(message, isDisableNotification = true) {
 async function getPrice() {
   console.log(`open page ${config.url}`)
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   const result = await page.goto(config.url);
   const status = result.status()
   if (status === 200) {
