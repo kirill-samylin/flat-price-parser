@@ -6,28 +6,79 @@ let currentValue = null
 let browser = null
 let bot = new TelegramBot(config.token, { polling: true })
 
+function sendMessage(message, isDisableNotification = true) {
+  bot.sendMessage(config.adminId,message, { parse_mode: 'Markdown', disable_notification: isDisableNotification })
+}
+
 async function getPrice() {
+  console.log(`open page ${config.url}`)
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   const result = await page.goto(config.url);
   const status = result.status()
   if (status === 200) {
+    console.log('page opened')
     const searchResultSelector = '.b-flat__price';
 
-    // Locate the full title with a unique string
     const textSelector = await page.waitForSelector(
       searchResultSelector
     );
     const elementValue = await textSelector.evaluate(el => el.textContent);
+    console.log(`get value ${elementValue}`)
     const isNewValue = currentValue !== elementValue
     if (isNewValue) {
       currentValue = elementValue
     }
-    bot.sendMessage(config.adminId,`Price: ${elementValue}, [open site](${config.url})`, { parse_mode: 'Markdown', disable_notification: !isNewValue })
+
+    sendMessage(`Price: ${elementValue}, [open site](${config.url})`, !isNewValue)
+  } else {
+    console.log('fail open page')
   }
   page.close();
 }
 
-// 272169
+// function openPage(url) {
+//   return new Promise(async (resolve) => {
+//     const page = await browser.newPage();
+//     await page.goto(url);
+//     resolve(page)
+//     // const statusPage = result.status()
+//     // if (statusPage === 200) {
+//     //   resolve(page)
+//     // } else {
+//     //   reject(page)
+//     // }
+//   })
+// }
+//
+//
+// async function parsingPageInterval() {
+//   let fail = 0
+//   const page = await openPage(config.url)
+//   const statusPage = page.status()
+//
+//   let parsing = setInterval(() => {
+//     const statusPage = page.status()
+//     if (statusPage === 200) {
+//
+//     } else {
+//
+//     }
+//     openPage(config.url)
+//       .then((page) => {
+//         fail = 0
+//       })
+//       .catch(async (page) => {
+//         await page.reload(appUrl);
+//         fail++
+//         if (fail > config.timeInterval) {
+//           sendMessage('limit fail is exceeded, off parsing')
+//           clearInterval(parsing)
+//         }
+//       })
+//   }, config.timeInterval)
+// }
+
 function initApp() {
   puppeteer.launch({
     headless: true,
