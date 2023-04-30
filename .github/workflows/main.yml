@@ -1,4 +1,4 @@
-name: Start parser
+name: CI
 on: push
 env:
   TOKEN: ${{ secrets.TOKEN }}
@@ -12,11 +12,34 @@ jobs:
      uses: actions/checkout@v3
    - name: Install dependencies
      run: npm ci
-   - name: Run parser
-     run: node app.js "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
-     env:
-       CI: true
-
+#   - name: Run parser
+#     run: node app.js "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
+#     env:
+#       CI: true
+deploy:
+  needs: test
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/main'
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install Ruby and gems
+      uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
+      with:
+        bundler-cache: true
+    - name: Run command on remote server
+      uses: D3rHase/ssh-command-action@v0.2.2
+      with:
+        host: ${{secrets.SSH_HOST}}
+        user: ${{secrets.SSH_USER}}
+        private_key: ${{secrets.SSH_PRIVATE_KEY}}
+        command: |
+          cd ${{ secrets.PROJECT_FOLDER }};
+#          git checkout main;
+#          git pull;
+#          docker-compose --file docker-compose.prod.yml down;
+#          docker-compose --file docker-compose.prod.yml up -d;
+#          docker system prune --all --force;
 
 
 
