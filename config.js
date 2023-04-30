@@ -5,5 +5,5 @@ module.exports = {
   token: process.env.TOKEN,
   url: process.env.FLAT_URL,
   maxFailCount: 10,
-  timeInterval: 60000 * 60000,
+  timeInterval: 60 * 1000 * 60,
 }
