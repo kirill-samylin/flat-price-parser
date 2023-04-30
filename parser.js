@@ -29,7 +29,9 @@ async function getPrice() {
 
 // 272169
 function initApp() {
-  puppeteer.launch()
+  puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
+  })
     .then(browserApi => {
       browser = browserApi
       getPrice()
