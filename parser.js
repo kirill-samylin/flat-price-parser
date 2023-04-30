@@ -30,7 +30,8 @@ async function getPrice() {
 // 272169
 function initApp() {
   puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser',
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   })
     .then(browserApi => {
       browser = browserApi
