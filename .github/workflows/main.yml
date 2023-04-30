@@ -16,18 +16,16 @@ jobs:
      uses: actions/checkout@v3
    - name: Install dependencies
      run: npm ci
-   - name: Checkout code
-      uses: actions/checkout@v3
    - name: Run command on remote server
-      uses: D3rHase/ssh-command-action@v0.2.2
-      with:
-        host: ${{secrets.SSH_HOST}}
-        user: ${{secrets.SSH_USER}}
-        private_key: ${{secrets.SSH_PRIVATE_KEY}}
-        command: |
-          cd ${{ secrets.PROJECT_FOLDER }};
-          echo '--- LIST OF FILES ---';
-          git init;
+     uses: D3rHase/ssh-command-action@v0.2.2
+     with:
+       host: ${{secrets.SSH_HOST}}
+       user: ${{secrets.SSH_USER}}
+       private_key: ${{secrets.SSH_PRIVATE_KEY}}
+       command: |
+         cd ${{ secrets.PROJECT_FOLDER }};
+         echo '--- LIST OF FILES ---';
+         git init;
 #   - name: Run parser
 #     run: node app.js "TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }}"
 #     env:
