@@ -1,9 +1,33 @@
-name: Demo
-on: workflow_dispatch
-jobs: 
- print: 
+name: CI
+on:
+  push:
+    branches: ["main"]
+env:
+  TOKEN: ${{ secrets.TOKEN }}
+  ADMIN_ID: ${{ secrets.ADMIN_ID }}
+  FLAT_URL: ${{ secrets.FLAT_URL }}
+jobs:
+ build-node:
   runs-on: ubuntu-latest
-  steps: 
-   - name: Print to console
-     run: echo Hello
-    
+  steps:
+   - name: Get repository code
+     uses: actions/checkout@v3
+   - name: Run command on remote server
+     uses: D3rHase/ssh-command-action@v0.2.2
+     with:
+       host: ${{secrets.SSH_HOST}}
+       user: ${{secrets.SSH_USER}}
+       private_key: ${{secrets.SSH_PRIVATE_KEY}}
+       command: |
+         cd ${{ secrets.PROJECT_FOLDER }};
+         git checkout main;
+         git fetch --all
+         git pull;
+         npm ci
+         TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }} pm2 restart app --update-env
+
+
+
+
+
+

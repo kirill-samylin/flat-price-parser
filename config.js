@@ -1,4 +1,7 @@
+require('dotenv').config()
+
 module.exports = {
-  adminId: '',
-  token: '',
+  adminId: process.env.ADMIN_ID,
+  token: process.env.TOKEN,
+  url: process.env.FLAT_URL,
 }

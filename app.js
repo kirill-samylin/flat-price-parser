@@ -7,9 +7,9 @@ let currentValue = null
 let browser = null
 let bot = new TelegramBot(config.token, { polling: true })
 
-async function getPrice(flatId) {
+async function getPrice() {
   const page = await browser.newPage();
-  const result = await page.goto(`https://etalongroup.ru/spb/choose/${flatId}/`);
+  const result = await page.goto(config.url);
   const status = result.status()
   if (status === 200) {
     const searchResultSelector = '.b-flat__price';
@@ -19,7 +19,11 @@ async function getPrice(flatId) {
       searchResultSelector
     );
     const elementValue = await textSelector.evaluate(el => el.textContent);
-    bot.sendMessage(config.adminId,`${elementValue}`)
+    const isNewValue = currentValue !== elementValue
+    if (isNewValue) {
+      currentValue = elementValue
+    }
+    bot.sendMessage(config.adminId,`Price: ${elementValue}, [open site](${config.url})`, { parse_mode: 'Markdown', disable_notification: !isNewValue })
   }
   page.close();
 }
@@ -29,10 +33,10 @@ function initApp() {
   puppeteer.launch()
     .then(browserApi => {
       browser = browserApi
-      getPrice('')
-      setInterval(() => getPrice(''), 120000)
+      getPrice()
+      setInterval(() => getPrice(), 120000)
     })
-  bot.sendMessage(config.adminId,'App started [test](https://etalongroup.ru/spb/choose/272169/)', { parse_mode: 'Markdown' })
+  bot.sendMessage(config.adminId,'App started', { parse_mode: 'Markdown', disable_notification: true })
 }
 
 initApp()
