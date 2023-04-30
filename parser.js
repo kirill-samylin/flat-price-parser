@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer')
 const TelegramBot = require('node-telegram-bot-api');
 const config = require('./config')
-const utils = require('./utils')
 
 let currentValue = null
 let browser = null

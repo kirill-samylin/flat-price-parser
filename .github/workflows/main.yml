@@ -23,7 +23,7 @@ jobs:
          git checkout main;
          git pull;
          npm ci;
-         TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }} pm2 restart app --update-env;
+         TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }} pm2 restart parser --update-env;
 
 
 
