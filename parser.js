@@ -87,7 +87,7 @@ function initApp() {
     .then(browserApi => {
       browser = browserApi
       getPrice()
-      setInterval(() => getPrice(), 120000)
+      setInterval(() => getPrice(), config.timeInterval)
     })
   bot.sendMessage(config.adminId,'App started', { parse_mode: 'Markdown', disable_notification: true })
 }
