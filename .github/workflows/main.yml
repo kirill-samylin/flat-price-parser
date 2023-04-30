@@ -22,6 +22,8 @@ jobs:
          cd ${{ secrets.PROJECT_FOLDER }};
          git checkout main;
          git pull;
+         node -v;
+         npm -v;
          npm install;
          TOKEN=${{ secrets.TOKEN }} ADMIN_ID=${{ secrets.ADMIN_ID }} FLAT_URL=${{ secrets.FLAT_URL }} pm2 restart parser --update-env;
 
