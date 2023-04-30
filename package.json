@@ -2,9 +2,9 @@
   "name": "flat-price-parser",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "parser.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node parser.js"
   },
   "author": "",
   "license": "ISC",
