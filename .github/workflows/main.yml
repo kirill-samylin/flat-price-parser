@@ -2,10 +2,6 @@ name: CI
 on:
   push:
     branches: ["main"]
-env:
-  TOKEN: ${{ secrets.TOKEN }}
-  ADMIN_ID: ${{ secrets.ADMIN_ID }}
-  FLAT_URL: ${{ secrets.FLAT_URL }}
 jobs:
  build-node:
   runs-on: ubuntu-latest
