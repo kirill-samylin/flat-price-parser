@@ -48,7 +48,7 @@ function initApp() {
       console.log(config.timeInterval)
       setInterval(() => getPrice(), config.timeInterval)
     })
-  bot.sendMessage(config.adminId,'App started', { parse_mode: 'Markdown', disable_notification: true })
+  sendMessage('App started')
 }
 
 initApp()
