@@ -37,48 +37,6 @@ async function getPrice() {
   page.close();
 }
 
-// function openPage(url) {
-//   return new Promise(async (resolve) => {
-//     const page = await browser.newPage();
-//     await page.goto(url);
-//     resolve(page)
-//     // const statusPage = result.status()
-//     // if (statusPage === 200) {
-//     //   resolve(page)
-//     // } else {
-//     //   reject(page)
-//     // }
-//   })
-// }
-//
-//
-// async function parsingPageInterval() {
-//   let fail = 0
-//   const page = await openPage(config.url)
-//   const statusPage = page.status()
-//
-//   let parsing = setInterval(() => {
-//     const statusPage = page.status()
-//     if (statusPage === 200) {
-//
-//     } else {
-//
-//     }
-//     openPage(config.url)
-//       .then((page) => {
-//         fail = 0
-//       })
-//       .catch(async (page) => {
-//         await page.reload(appUrl);
-//         fail++
-//         if (fail > config.timeInterval) {
-//           sendMessage('limit fail is exceeded, off parsing')
-//           clearInterval(parsing)
-//         }
-//       })
-//   }, config.timeInterval)
-// }
-
 function initApp() {
   puppeteer.launch({
     headless: true,
