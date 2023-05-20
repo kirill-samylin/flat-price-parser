@@ -3,14 +3,13 @@ const TelegramBot = require('node-telegram-bot-api');
 const config = require('./config')
 
 let currentValue = null
-let browser = null
-let bot = new TelegramBot(config.token, { polling: true })
+const bot = new TelegramBot(config.token, { polling: true })
 
 function sendMessage(message, isDisableNotification = true) {
   bot.sendMessage(config.adminId,message, { parse_mode: 'Markdown', disable_notification: isDisableNotification })
 }
 
-async function getPrice() {
+async function getPrice(browser) {
   console.log(`open page ${config.url}`)
   const page = await browser.newPage();
   await page.setDefaultNavigationTimeout(0);
@@ -37,18 +36,13 @@ async function getPrice() {
   page.close();
 }
 
-function initApp() {
-  puppeteer.launch({
-    headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+})
+  .then(browser => {
+    sendMessage('App started')
+    getPrice(browser)
+    console.log(config.timeInterval)
+    setInterval(() => getPrice(browser), config.timeInterval)
   })
-    .then(browserApi => {
-      browser = browserApi
-      getPrice()
-      console.log(config.timeInterval)
-      setInterval(() => getPrice(), config.timeInterval)
-    })
-  sendMessage('App started')
-}
-
-initApp()
